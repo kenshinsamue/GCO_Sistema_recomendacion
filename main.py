@@ -51,7 +51,55 @@ class Matriz:
     if metodo == "3":
       self.Euclideo()
       print(self.sim)
-      
+    vecinos = int(0)
+    print("Introduzca el numero de vecinos : (minimo 3, maximo {})".format(len(self.valores)))
+    vecinos = int(input())
+    while True:
+      if vecinos >=3 and vecinos <= len(self.valores):
+        break
+      print("Introduzca el numero de vecinos : (minimo 3, maximo {})".format(len(self.valores)))
+      vecinos = int(input())
+    self.vecinos = vecinos
+    print ("seleccione uno de los siguientes metodos de prediccion:" )
+    print ("1) Prediccion simple")
+    print ("2) Prediccion de diferencia con la media")
+    metodo = input()
+    if metodo == "1":
+      self.PrediccionSimple()
+      print(self.prediccion)
+
+
+  def PrediccionSimple(self):
+    # determinamos los limites de los vecinos del usuario x
+    limite_inferior = self.pos[0] - self.vecinos
+    limite_superior = self.pos[0] + self.vecinos
+    if limite_inferior < 0:
+      limite_inferior = 0
+    if limite_superior > len(self.valores):
+      limite_superior = len(self.valores) -1
+    
+    # ejecutamos el algoritmo de prediccion en base a los usuarios
+      # calculamos primero el denominador que es la suma de todos los valores 
+    denominador =0
+    for i in range(limite_inferior,limite_superior):
+      if i >= len(self.sim):
+        pass
+      else:
+        denominador = denominador + abs(self.sim[i])
+      # calculamos el numerador  
+    numerador =0
+    for y in range(limite_inferior,limite_superior):
+      if y >= len(self.sim):
+        pass
+      else:
+        sim = self.sim[y]
+        if y >= self.pos[0]:
+          valor = float(self.valores[y][self.pos[1]])  
+          numerador = numerador + (sim * valor)
+    
+        
+    self.prediccion = numerador/denominador        
+  
   def Euclideo(self):
     for y in range(len(self.valores)):
       if(y != self.pos[0]):
@@ -87,7 +135,7 @@ class Matriz:
         denominador = primero * segundo
         sim = nominador / denominador
         self.sim.append(sim)
-    pass
+    
   def MediaUsuario(self,pos_usuario):
     media_u = 0
     contador =0
