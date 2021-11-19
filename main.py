@@ -67,8 +67,50 @@ class Matriz:
     if metodo == "1":
       self.PrediccionSimple()
       print(self.prediccion)
+    if metodo == "2":
+      self.PrediccionMedia()
+      print(self.prediccion)
 
 
+  def PrediccionMedia(self):
+    media_usuario = self.MediaUsuario(self.pos[0])
+
+    # Numerador
+    numerador = 0
+    # determinamos los limites de los vecinos del usuario x
+    limite_inferior = self.pos[0] - self.vecinos
+    limite_superior = self.pos[0] + self.vecinos
+    if limite_inferior < 0:
+      limite_inferior = 0
+    if limite_superior > len(self.valores):
+      limite_superior = len(self.valores) -1
+
+    for y in range(limite_inferior,limite_superior):
+      if y >= len(self.sim):
+        pass
+      else:
+        sim = self.sim[y]
+        media_usuario_nuevo = self.MediaUsuario(y)
+        if y >= self.pos[0]:
+          valor = float(self.valores[y+1][self.pos[1]]) 
+          valor = valor - media_usuario_nuevo 
+          numerador = numerador + (sim * valor)
+        if y < self.pos[0]:
+          valor = float(self.valores[y][self.pos[1]]) 
+          valor = valor - media_usuario_nuevo 
+          numerador = numerador + (sim * valor)
+
+    # Denominador
+    denominador =0
+    for i in range(limite_inferior,limite_superior):
+      if i >= len(self.sim):
+        pass
+      else:
+        denominador = denominador + abs(self.sim[i])
+
+    self.prediccion = numerador/denominador
+    self.prediccion = self.prediccion + media_usuario 
+      
   def PrediccionSimple(self):
     # determinamos los limites de los vecinos del usuario x
     limite_inferior = self.pos[0] - self.vecinos
@@ -94,9 +136,11 @@ class Matriz:
       else:
         sim = self.sim[y]
         if y >= self.pos[0]:
+          valor = float(self.valores[y+1][self.pos[1]])  
+          numerador = numerador + (sim * valor)
+        elif y< self.pos[0]:
           valor = float(self.valores[y][self.pos[1]])  
           numerador = numerador + (sim * valor)
-    
         
     self.prediccion = numerador/denominador        
   
