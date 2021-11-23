@@ -35,7 +35,7 @@ Durante la ejecucion del programa nos va a preguntar primero que metodo de simil
 
 una vez se han elegido el programa automaticamente realizara todas las operaciones necesarias para calcular estos coeficientes de similitud mostrando por ultimo el vector resultante con todos los coeficientes:
 
-`----------------`
+`[0.839181358296689, 0.6063390625908326, 0.0, -0.7680953726425683]`
 
 Posteriormente nos va a pedir los vecinos que usaremos para poder comparar, y obtener la prediccion, tendra un minimo de 3 usuarios y un maximo del tamaño de la matriz 
 

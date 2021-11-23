@@ -192,15 +192,18 @@ class Matriz:
   
   def Pearson(self):
     Media_usuario = self.MediaUsuario(self.pos[0])
+    print("La media del usuario es: {}".format(Media_usuario))
     Media_usuario_nuevo =0.0
     for y in range(len(self.valores)):
       if(y != self.pos[0]):
         Media_usuario_nuevo = self.MediaUsuario(y)
+        print("La media de {} es : {}".format(y,Media_usuario_nuevo))
         nominador = 0.0
         # calculamos el nominador
         for i in range(len(self.valores[y])):
           if i != self.pos[1] and self.valores[y][i] != "-":
             nominador = nominador + ((float(self.valores[self.pos[0]][i])-Media_usuario)*(float(self.valores[y][i])-Media_usuario_nuevo))
+        print("El nominador es: {}".format(nominador))
         # calculamos el denominador
         denominador = 0.0
         primero = 0
@@ -211,8 +214,10 @@ class Matriz:
             primero = primero + pow((float(self.valores[self.pos[0]][i])-Media_usuario),2)
             segundo = segundo + pow((float(self.valores[y][i])-Media_usuario_nuevo),2)
           # aplicamos ambas raices
+        print("las raices son : {} y {}".format(primero,segundo))  
         primero = math.sqrt(primero)
         segundo = math.sqrt(segundo)
+        print("las raices son : {} y {}".format(primero,segundo))
         # obtenemos el valor final del sim(u,v)
         denominador = primero * segundo
         sim = nominador / denominador
